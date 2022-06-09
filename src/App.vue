@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { Icon } from "@iconify/vue";
+
 import UserCard from "./components/UserCard.vue";
+import SearchBar from "./components/SearchBar.vue";
 import { defaultData } from "./defaultData";
 
+const searchValue = ref('');
 const darkMode = ref(true);
+
 const toggleDarkMode = () => {
   darkMode.value = !darkMode.value;
 
@@ -46,6 +50,8 @@ const toggleDarkMode = () => {
           </template>
         </div>
       </div>
+
+      <SearchBar :value="searchValue" action="() => return"/>
 
       <UserCard :user="defaultData" />
     </div>
