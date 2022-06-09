@@ -1,46 +1,53 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
-  import { Icon } from '@iconify/vue';
+import { ref } from "vue";
+import { Icon } from "@iconify/vue";
+import UserCard from "./components/UserCard.vue";
+import { defaultData } from "./defaultData";
 
-  const darkMode = ref(true);
-  const toggleDarkMode = () => {
-    darkMode.value = !darkMode.value
-    
-    const rootHtml = document.getElementById('html-root');
+const darkMode = ref(true);
+const toggleDarkMode = () => {
+  darkMode.value = !darkMode.value;
 
-    if (darkMode.value && !rootHtml?.classList.contains('dark')) {
-      document.documentElement.classList.add('dark');
-    }
-    else if (!darkMode.value && rootHtml?.classList.contains('dark')) {
-      document.documentElement.classList.remove('dark');
-    }
-  };
+  const rootHtml = document.getElementById("html-root");
 
+  if (darkMode.value && !rootHtml?.classList.contains("dark")) {
+    document.documentElement.classList.add("dark");
+  } else if (!darkMode.value && rootHtml?.classList.contains("dark")) {
+    document.documentElement.classList.remove("dark");
+  }
+};
 </script>
 
 <template>
-  <main className="min-h-screen flex justify-center bg-light text-sm text-dark font-mono transition lg:text-base dark:bg-dark dark:text-light">
-    <div className="min-h-screen min-w-full flex flex-col gap-y-6 p-6 md:justify-center sm:container sm:min-w-0 lg:max-w-screen-lg">
+  <main
+    class="min-h-screen flex justify-center bg-light text-sm text-dark font-mono transition lg:text-base dark:bg-dark dark:text-light"
+  >
+    <div
+      class="min-h-screen min-w-full flex flex-col gap-y-6 p-6 md:justify-center sm:container sm:min-w-0 lg:max-w-screen-lg"
+    >
       <!-- Header -->
-      <div className="flex justify-between items-center px-2 hover:cursor-pointer">
-        <a href="/"><h1 className="text-xl font-bold md:text-2xl">GitHub-finder</h1></a>
+      <div
+        class="flex justify-between items-center px-2 hover:cursor-pointer"
+      >
+        <h1 class="text-xl font-bold md:text-2xl">
+          <a href="/">GitHub-finder</a>
+        </h1>
         <div
-          className="flex items-center gap-x-2 opacity-80 select-none transition hover:opacity-100 hover:cursor-pointer"
-          @click="toggleDarkMode"  
+          class="flex items-center gap-x-2 opacity-80 select-none transition hover:opacity-100 hover:cursor-pointer"
+          @click="toggleDarkMode"
         >
           <template v-if="darkMode">
-            <p className="tracking-widest text-sm">DARK</p>
+            <p class="tracking-widest text-sm">DARK</p>
             <Icon icon="ion:moon" />
           </template>
           <template v-else>
-            <p className="tracking-widest text-sm">Light</p>
+            <p class="tracking-widest text-sm">Light</p>
             <Icon icon="ion:sunny" />
           </template>
         </div>
       </div>
 
-      <!-- <SearchBar value={search} onInputChange={handleSearchChange} action={handleSearchAction} /> -->
-      
+      <UserCard :user="defaultData" />
     </div>
   </main>
 </template>
