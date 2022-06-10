@@ -2,13 +2,14 @@
 import { Icon } from "@iconify/vue";
 
 interface Props {
-  value: string,
+  modelValue: string,
   action: any,
 }
 
 const props = defineProps<Props>();
+defineEmits(['update:modelValue']);
 
-const enterKeyAction = (e:KeyboardEvent) => {
+function enterKeyAction(e: KeyboardEvent) {
   if (e.key === "Enter") {
     props.action();
   }
@@ -28,12 +29,13 @@ const enterKeyAction = (e:KeyboardEvent) => {
       type="text" 
       placeholder="Search GitHub username" 
       id="searchInput"
-      v-model="value"
-      :onkeydown="enterKeyAction"
+      :value="modelValue"
+      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+      @keydown="enterKeyAction"
       class="pl-9 flex-1 bg-transparent appearance-none outline-none truncate md:pl-14"
     />
     <button 
-      :onclick="action"
+      @click="action"
       class="bg-blue-600 text-light px-4 py-3 font-bold rounded-lg transition shadow-xl hover:bg-blue-500"
     >
       Search

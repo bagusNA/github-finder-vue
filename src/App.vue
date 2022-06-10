@@ -2,14 +2,20 @@
 import { ref } from "vue";
 import { Icon } from "@iconify/vue";
 
+import type { User } from "./types/User";
+import { defaultData } from "./defaultData";
+import { searchUser } from "./api/user";
+
 import UserCard from "./components/UserCard.vue";
 import SearchBar from "./components/SearchBar.vue";
-import { defaultData } from "./defaultData";
 
-const searchValue = ref('');
 const darkMode = ref(true);
+const isLoading = ref(false);
+const isNotFound = ref(false);
+const searchValue = ref('');
+const searchResults = ref<User[]>([]);
 
-const toggleDarkMode = () => {
+function toggleDarkMode() {
   darkMode.value = !darkMode.value;
 
   const rootHtml = document.getElementById("html-root");
@@ -20,19 +26,22 @@ const toggleDarkMode = () => {
     document.documentElement.classList.remove("dark");
   }
 };
+
+async function handleSearch() {
+  isLoading.value = true;
+  let data: User[] = await searchUser(searchValue.value);
+  isLoading.value = false;
+
+  if (data.length === 0) return isNotFound.value = true;
+  searchResults.value = data;
+}
 </script>
 
 <template>
-  <main
-    class="min-h-screen flex justify-center bg-light text-sm text-dark font-mono transition lg:text-base dark:bg-dark dark:text-light"
-  >
-    <div
-      class="min-h-screen min-w-full flex flex-col gap-y-6 p-6 md:justify-center sm:container sm:min-w-0 lg:max-w-screen-lg"
-    >
+  <main class="min-h-screen flex justify-center bg-light text-sm text-dark font-mono transition lg:text-base dark:bg-dark dark:text-light">
+    <div class="min-h-screen min-w-full flex flex-col gap-y-6 p-6 md:justify-center sm:container sm:min-w-0 lg:max-w-screen-lg">
       <!-- Header -->
-      <div
-        class="flex justify-between items-center px-2 hover:cursor-pointer"
-      >
+      <div class="flex justify-between items-center px-2 hover:cursor-pointer">
         <h1 class="text-xl font-bold md:text-2xl">
           <a href="/">GitHub-finder</a>
         </h1>
@@ -51,7 +60,7 @@ const toggleDarkMode = () => {
         </div>
       </div>
 
-      <SearchBar :value="searchValue" action="() => return"/>
+      <SearchBar v-model="searchValue" :action="handleSearch" />
 
       <UserCard :user="defaultData" />
     </div>
