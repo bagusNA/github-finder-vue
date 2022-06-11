@@ -50,11 +50,14 @@ async function handleSearch() {
 
 async function searchCardAction(userLogin: string) {
   isLoading.value = true;
-  let data = await getUserData(userLogin);
-  isLoading.value = false;
 
-  if (data.message === 'Not Found') return isNotFound.value = true;
-  userData.value = data;
+  let data = await getUserData(userLogin);
+
+  (data.message === 'Not Found')
+    ? isNotFound.value = true
+    : userData.value = data;
+
+  isLoading.value = false;
 }
 </script>
 
