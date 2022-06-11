@@ -10,6 +10,7 @@ module.exports = {
         "card-dark-hover": "#2A3962",
         light: "#F5F8FF",
         "card-light": "#FEFEFE",
+        "card-light-hover": "#EEEEEE",
         "accent-blue": "#017BFD",
       },
       fontFamily: {
