@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { User } from "../types/User";
-import StatEntry from "./StatEntry.vue";
-import FieldEntry from "./FieldEntry.vue";
+import type { User } from "../../types/User";
+import StatEntry from "../StatEntry.vue";
+import FieldEntry from "../FieldEntry.vue";
 
 interface Props {
   user: User
