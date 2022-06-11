@@ -18,7 +18,7 @@ function enterKeyAction(e: KeyboardEvent) {
 </script>
 
 <template>
-  <div class="relative flex justify-between px-2 py-2  rounded-2xl shadow-2xl md:text-lg dark:bg-card-dark dark:text-light">
+  <div class="relative flex justify-between px-2 py-2  rounded-2xl shadow-lg md:text-lg bg-card-light dark:bg-card-dark dark:text-light">
     <label htmlFor="searchInput" class="absolute inset-y-0 left-0 flex items-center pl-3 md:pl-4">
       <Icon 
         icon="ion:search"
